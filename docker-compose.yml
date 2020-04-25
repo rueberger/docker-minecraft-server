@@ -1,19 +1,21 @@
 version: '3'
-# Other docker-compose examples in /examples
 
 services:
   minecraft:
-    image: itzg/minecraft-server
     ports:
       - "25565:25565"
     volumes:
-      - "mc:/data"
+      - "world:/data"
     environment:
       EULA: "TRUE"
+      MAX_MEMORY: 48G
+      MAX_BUILD_HEIGHT: 256
+      VIEW_DISTANCE: 15
+      LEVEL_TYPE: DEFAULT
+      MAX_PLAYERS: 100
       CONSOLE: "false"
-      ENABLE_RCON: "true"
-      RCON_PASSWORD: "testing"
-      RCON_PORT: 28016
+      DIFFICULTY: "normal"
+    image: itzg/minecraft-server
     restart: always
   rcon:
     image: itzg/rcon
@@ -24,5 +26,5 @@ services:
       - "rcon:/opt/rcon-web-admin/db"
 
 volumes:
-  mc:
+  world:
   rcon:
